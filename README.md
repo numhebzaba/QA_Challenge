@@ -49,6 +49,35 @@ Click a test row and use the gallery arrows to view its numbered screenshots. If
 .\.venv\Scripts\python.exe -m playwright show-trace ".\test-results\demo-artifacts\tests-demo-failure-py-test-tc00-intentional-counter-failure-chromium\trace.zip"
 ~~~
 
+### Run from the VS Code terminal on macOS
+
+Open the repository folder in VS Code, then select **Terminal → New Terminal**. These commands assume zsh or Bash and Python 3.12 is available as `python3.12`. Run them from the folder containing `pytest.ini`.
+
+#### First-time setup
+
+```bash
+python3.12 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m playwright install chromium
+```
+
+#### Run the tests and open the report
+
+Activate the virtual environment again in each new terminal. Skip that line if it is already active.
+
+```bash
+source .venv/bin/activate
+pytest tests/test_todos.py
+open test-results/report.html
+```
+
+Pytest prints the full HTML report path after the run. To view a failure trace, replace the example ZIP path with the one for your case.
+
+```bash
+python -m playwright show-trace "test-results/report-artifacts/<case-folder>/trace.zip"
+```
+
 ### Project layout
 
 - `pages/todo_page.py` holds selectors and browser interactions. Tests own expected outcomes.
